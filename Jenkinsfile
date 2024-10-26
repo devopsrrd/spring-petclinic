@@ -7,7 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'       
-               # sh 'mvn -T 2 clean install -DskipTests'
+               // sh 'mvn -T 2 clean install -DskipTests'
             }
         }
         stage('Create Docker Image') {
