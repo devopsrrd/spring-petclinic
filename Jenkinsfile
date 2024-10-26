@@ -1,6 +1,8 @@
 pipeline {
     agent {label 'build-agent'}
-
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+    }
     stages {
         stage('Build') {
             steps {
@@ -11,7 +13,8 @@ pipeline {
         stage('Create Docker Image') {
             steps {
                 echo 'Create Docker Image'
-                sh 'sudo docker build -t springboot:${BUILD_NUMBER} .'
+                sh 'docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .'
+                sh 'docker push rrddevops/spring-petclinic:${BUILD_NUMBER}'
             }
         }
         stage('Deploy') {
