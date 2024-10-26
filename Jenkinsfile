@@ -12,10 +12,12 @@ pipeline {
         }
         stage('Create Docker Image') {
             steps {
+                sh '''
+                #!/bin/bash
                 echo 'Create Docker Image'
-                sleep 300
-                sh 'docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .'
-                sh 'docker push rrddevops/spring-petclinic:${BUILD_NUMBER}'
+                docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .
+                docker push rrddevops/spring-petclinic:${BUILD_NUMBER}
+                '''
             }
         }
         stage('Deploy') {
