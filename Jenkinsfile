@@ -16,6 +16,7 @@ pipeline {
                 #!/bin/bash
                 echo "-----PWD"
                 pwd
+                whoami
                 echo "-----ls"
                 ls
                 cat /etc/group
