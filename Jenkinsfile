@@ -16,7 +16,6 @@ pipeline {
                 #!/bin/bash
                 cat /etc/group
                 echo 'Create Docker Image'
-                sleep 300
                 docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .
                 docker push rrddevops/spring-petclinic:${BUILD_NUMBER}
                 '''
