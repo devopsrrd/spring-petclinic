@@ -14,6 +14,10 @@ pipeline {
             steps {
                 sh '''
                 #!/bin/bash
+                echo "-----PWD"
+                pwd
+                echo "-----ls"
+                ls
                 cat /etc/group
                 echo 'Create Docker Image'
                 docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .
