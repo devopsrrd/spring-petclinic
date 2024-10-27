@@ -50,8 +50,8 @@ pipeline {
                 echo "-----groups"
                 groups
                 echo 'Create Docker Image'
-                #docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .
-                #docker push rrddevops/spring-petclinic:${BUILD_NUMBER}
+                docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .
+                docker push rrddevops/spring-petclinic:${BUILD_NUMBER}
                 '''
             }
         }
