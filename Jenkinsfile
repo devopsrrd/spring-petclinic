@@ -2,12 +2,41 @@ pipeline {
     agent {label 'build-agent'}
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        SONARQUBE_SERVER = 'SonarQube' // Name of your SonarQube server
+        SONAR_AUTH_TOKEN = credentials('sonar-token') // Use Jenkins credentials for SonarQube token
     }
     stages {
         stage('Build') {
             steps {
                 echo 'Building...'       
                //sh 'mvn -T 2 clean install -DskipTests -Dcheckstyle.skip'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    // Run SonarQube analysis
+                    withSonarQubeEnv(SONARQUBE_SERVER) {
+                        sh """
+                            mvn sonar:sonar \
+                                -Dsonar.login=${SONAR_AUTH_TOKEN} \
+                                -Dsonar.projectKey=spring-petclinic \
+                                -Dsonar.projectName=SpringPetClinic \
+                                -Dsonar.projectVersion=1.0 \
+                                -Dsonar.sources=src
+                        """
+                    }
+                }
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                // Wait for SonarQube to analyze and check the quality gate status
+                script {
+                    timeout(time: 10, unit: 'MINUTES') { // Adjust timeout as needed
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
             }
         }
         stage('Create Docker Image') {
