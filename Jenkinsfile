@@ -1,15 +1,16 @@
 pipeline {
-    agent {label 'build-agent'}
+    agent { label 'build-agent' }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        DOCKER_HUB_REPO = 'rrddevops/spring-petclinic'
         SONARQUBE_SERVER = 'SonarQube' // Name of your SonarQube server
         SONAR_AUTH_TOKEN = credentials('sonar-token') // Use Jenkins credentials for SonarQube token
     }
     stages {
         stage('Build') {
             steps {
-                echo 'Building...'       
-                 sh 'mvn -T 4 clean install -DskipTests -Dcheckstyle.skip'
+                echo 'Building...'
+                sh 'mvn -T 4 clean install -DskipTests -Dcheckstyle.skip'
             }
         }
         stage('SonarQube Analysis') {
@@ -37,22 +38,10 @@ pipeline {
         }
         stage('Create Docker Image') {
             agent { label 'ubuntu-agent' }
-            steps {                
-                sh '''
-                #!/bin/bash
-                echo "-----PWD"
-                pwd
-                echo "-----ls"
-                ls
-                cat /etc/group
-                echo "-----whoami"
-                #whoami
-                echo "-----groups"
-                groups
-                echo 'Create Docker Image'
-                docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .
-                docker push rrddevops/spring-petclinic:${BUILD_NUMBER}
-                '''
+            steps {
+                script {
+                    docker.build("${DOCKER_HUB_REPO}:latest")
+                }
             }
         }
         stage('Deploy') {
