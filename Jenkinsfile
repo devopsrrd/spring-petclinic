@@ -45,7 +45,7 @@ pipeline {
                 ls
                 cat /etc/group
                 echo "-----whoami"
-                //whoami
+                #whoami
                 echo "-----groups"
                 groups
                 echo 'Create Docker Image'
