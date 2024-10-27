@@ -37,7 +37,7 @@ pipeline {
             }
         }
         stage('Create Docker Image') {
-          //  agent { label 'ubuntu-agent' }
+            agent { label 'ubuntu-agent' }
             steps {
                 script {
                     docker.build("${DOCKER_HUB_REPO}:latest")
