@@ -37,6 +37,7 @@ pipeline {
         }
         stage('Create Docker Image') {
             steps {
+                agent { label 'ubuntu-agent' }
                 sh '''
                 #!/bin/bash
                 echo "-----PWD"
