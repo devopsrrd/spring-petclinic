@@ -39,10 +39,18 @@ pipeline {
         stage('Create Docker Image') {
             steps {
                 script {
-                    def customImage = docker.build("${DOCKER_HUB_REPO}:${BUILD_NUMBER}", "-f ./scripts/docker/Dockerfile .")
+                    def customImage = docker.build("${DOCKER_HUB_REPO}:${BRANCH_NAME}-${BUILD_NUMBER}", "-f ./scripts/docker/Dockerfile .")
                     docker.withRegistry('', 'dockerhub-credentials') {
                         customImage.push()
                     }
+                }
+            }
+        }
+        stage('Approval') {
+            steps {
+                script {
+                    // Input step for manual approval
+                    input(message: 'Do you approve to deploy?', ok: 'Yes')
                 }
             }
         }
