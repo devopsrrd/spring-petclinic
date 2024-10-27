@@ -39,7 +39,7 @@ pipeline {
         stage('Create Docker Image') {
             steps {
                 script {
-                    docker.build("${DOCKER_HUB_REPO}:latest", "scripts/docker/Dockerfile")
+                    docker.build("${DOCKER_HUB_REPO}:${BUILD_NUMBER}", "-f ./scripts/docker/Dockerfile")
                 }
             }
         }
