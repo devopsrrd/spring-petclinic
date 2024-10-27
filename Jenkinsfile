@@ -1,9 +1,9 @@
 pipeline {
     agent {
         kubernetes{
-label 'build-agent' // Label for the pod template
-defaultContainer 'docker' // Default container for pipeline steps
-yaml
+            label 'build-agent' // Label for the pod template
+            defaultContainer 'docker' // Default container for pipeline steps
+            yaml
 '''
 apiVersion: "v1"
 kind: "Pod"
