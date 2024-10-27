@@ -19,7 +19,7 @@ pipeline {
                     withSonarQubeEnv(SONARQUBE_SERVER) {
                         sh """
                             mvn sonar:sonar \
-                                -Dsonar.login=${SONAR_AUTH_TOKEN}
+                            -Dsonar.token=${SONAR_AUTH_TOKEN}
                         """
                     }
                 }
