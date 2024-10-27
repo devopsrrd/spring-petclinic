@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'build-agent' }
+    agent { label 'ubuntu-agent' }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         DOCKER_HUB_REPO = 'rrddevops/spring-petclinic'
@@ -37,7 +37,6 @@ pipeline {
             }
         }
         stage('Create Docker Image') {
-            agent { label 'ubuntu-agent' }
             steps {
                 script {
                     docker.build("${DOCKER_HUB_REPO}:latest")
