@@ -19,11 +19,7 @@ pipeline {
                     withSonarQubeEnv(SONARQUBE_SERVER) {
                         sh """
                             mvn sonar:sonar \
-                                -Dsonar.login=${SONAR_AUTH_TOKEN} \
-                                -Dsonar.projectKey=spring-petclinic \
-                                -Dsonar.projectName=SpringPetClinic \
-                                -Dsonar.projectVersion=1.0 \
-                                -Dsonar.sources=src
+                                -Dsonar.login=${SONAR_AUTH_TOKEN}
                         """
                     }
                 }
