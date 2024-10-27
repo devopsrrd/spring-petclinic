@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'build-agent'}
+    agent {label 'inbound-agent'}
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         SONARQUBE_SERVER = 'SonarQube' // Name of your SonarQube server
