@@ -70,8 +70,7 @@ spec:
   - command:
     - "/bin/sh"
     - "-c"
-    - "cp $(command -v jenkins-agent) /jenkins-agent/jenkins-agent;cp -R /usr/share/jenkins/.\
-      \ /jenkins-agent"
+    - "cp $(command -v jenkins-agent) /jenkins-agent/jenkins-agent;cp -R /usr/share/jenkins/. /jenkins-agent"
     image: "jenkins/inbound-agent:3261.v9c670a_4748a_9-2"
     name: "set-up-jenkins-agent"
     volumeMounts:
