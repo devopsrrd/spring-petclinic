@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'       
-               sh 'mvn -T 4 clean install DskipTests -Dcheckstyle.skip'
+               sh 'mvn -T 4 clean install -DskipTests -Dcheckstyle.skip'
             }
         }
         stage('SonarQube Analysis') {
