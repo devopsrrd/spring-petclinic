@@ -2,7 +2,7 @@ pipeline {
     agent { label 'ubuntu-agent' }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        DOCKER_HUB_REPO = 'rrddevops/spring-petclinic'
+        DOCKER_IMAGE = 'rrddevops/spring-petclinic'
         SONARQUBE_SERVER = 'SonarQube' // Name of your SonarQube server
         SONAR_AUTH_TOKEN = credentials('sonar-token') // Use Jenkins credentials for SonarQube token
     }
@@ -39,7 +39,7 @@ pipeline {
         stage('Create Docker Image') {
             steps {
                 script {
-                    def customImage = docker.build("${DOCKER_HUB_REPO}:${BUILD_NUMBER}", "-f ./scripts/docker/Dockerfile .")
+                    def customImage = docker.build("${DOCKER_IMAGE}:${BUILD_NUMBER}", "-f ./scripts/docker/Dockerfile .")
                 }
             }
         }
