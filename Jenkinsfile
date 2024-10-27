@@ -19,6 +19,10 @@ pipeline {
                 echo "-----ls"
                 ls
                 cat /etc/group
+                echo "-----whoami"
+                whoami
+                echo "-----groups"
+                groups
                 echo 'Create Docker Image'
                 docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .
                 docker push rrddevops/spring-petclinic:${BUILD_NUMBER}
