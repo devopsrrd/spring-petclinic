@@ -36,8 +36,8 @@ pipeline {
             }
         }
         stage('Create Docker Image') {
-            steps {
-                agent { label 'ubuntu-agent' }
+            agent { label 'ubuntu-agent' }
+            steps {                
                 sh '''
                 #!/bin/bash
                 echo "-----PWD"
@@ -50,7 +50,6 @@ pipeline {
                 echo "-----groups"
                 groups
                 echo 'Create Docker Image'
-                sleep 300
                 #docker build -t rrddevops/spring-petclinic:${BUILD_NUMBER} -f scripts/docker/Dockerfile .
                 #docker push rrddevops/spring-petclinic:${BUILD_NUMBER}
                 '''
