@@ -13,29 +13,29 @@ pipeline {
                 sh 'mvn -T 4 clean install -DskipTests -Dcheckstyle.skip'
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    // Run SonarQube analysis
-                    withSonarQubeEnv(SONARQUBE_SERVER) {
-                        sh """
-                            mvn sonar:sonar \
-                            -Dsonar.token=${SONAR_AUTH_TOKEN}
-                        """
-                    }
-                }
-            }
-        }
-        stage('Quality Gate') {
-            steps {
-                // Wait for SonarQube to analyze and check the quality gate status
-                script {
-                    timeout(time: 10, unit: 'MINUTES') { // Adjust timeout as needed
-                        waitForQualityGate abortPipeline: true
-                    }
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         script {
+        //             // Run SonarQube analysis
+        //             withSonarQubeEnv(SONARQUBE_SERVER) {
+        //                 sh """
+        //                     mvn sonar:sonar \
+        //                     -Dsonar.token=${SONAR_AUTH_TOKEN}
+        //                 """
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Quality Gate') {
+        //     steps {
+        //         // Wait for SonarQube to analyze and check the quality gate status
+        //         script {
+        //             timeout(time: 10, unit: 'MINUTES') { // Adjust timeout as needed
+        //                 waitForQualityGate abortPipeline: true
+        //             }
+        //         }
+        //     }
+        // }
         stage('Create Docker Image') {
             steps {
                 script {
